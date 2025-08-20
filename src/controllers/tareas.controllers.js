@@ -29,3 +29,17 @@ export const leerTareas = async (req, res) => {
         res.status(500).json({mensaje: 'Error al leer los productos' })
     }
 }
+
+export const leerTareasPorId = async (req, res) => {
+    try {
+        const tareaBuscada = await Tarea.findById(req.params.id);
+        if(!tareaBuscada) {
+            return res.status(404).json({ mensaje: 'Tarea no econtrada' })
+        }
+
+        res.status(200).json(tareaBuscada);
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ mensaje: 'Error al obtener la tarea' })
+    }
+}
