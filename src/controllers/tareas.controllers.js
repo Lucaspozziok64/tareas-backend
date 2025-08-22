@@ -56,3 +56,17 @@ export const eliminarTareaPorId = async (req, res) => {
         res.status(500).json({ mensaje: 'Error al eliminar la tarea' })
     }
 }
+
+export const editarTareaPorId = async (req, res) => {
+    try {
+        const tareaActualizada = await Tarea.findByIdAndUpdate(req.params.id, req.body);
+        if(!tareaActualizada) {
+            return res.status(404).json({ mensaje: 'Tarea no encontrada' })
+        }
+
+        res.status(200).json({ mensaje: 'Tarea actualizada exitosamente' })
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ mensaje: 'Error al editar la tarea' })
+    }
+}
